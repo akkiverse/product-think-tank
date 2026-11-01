@@ -1,0 +1,16 @@
+{
+  "name": "WealthManager",
+  "slug": "wealth-manager",
+  "repo": "https://github.com/akkiverse/wealth-manager",
+  "live_url": "https://wealth-manager-akkiverse.vercel.app",
+  "version": "1.0.0",
+  "stack": [
+    "python",
+    "fastapi",
+    "tailwindcss",
+    "gemini-api",
+    "ollama",
+    "vercel"
+  ],
+  "last_inspected": "2026-11-01"
+}
