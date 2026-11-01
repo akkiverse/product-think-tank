@@ -1,0 +1,32 @@
+{
+  "owner": "akkiverse",
+  "project_title": "Product Think Tank",
+  "repo": "akkiverse/product-think-tank",
+  "statuses": [
+    "Inbox",
+    "Thinking",
+    "Needs you",
+    "Approved: build",
+    "Building",
+    "Check preview",
+    "Approved: release",
+    "Live",
+    "Parked",
+    "Rollback"
+  ],
+  "founder_only_statuses": ["Approved: build", "Approved: release", "Rollback"],
+  "fields": {
+    "Stage": {"type": "SINGLE_SELECT", "options": ["Idea", "Business", "Build", "Live"]},
+    "Priority": {"type": "SINGLE_SELECT", "options": ["P1", "P2", "P3"]},
+    "Score": {"type": "NUMBER"},
+    "Verdict": {"type": "SINGLE_SELECT", "options": ["GO", "REFINE", "DROP"]},
+    "Product": {"type": "TEXT"},
+    "Next step": {"type": "TEXT"}
+  },
+  "labels": {
+    "idea": {"color": "1D76DB", "description": "A product idea on the board"},
+    "product": {"color": "0E8A16", "description": "An existing product card (Product: <name>)"},
+    "suggested-by-inspect": {"color": "FBCA04", "description": "Idea suggested by /inspect - never built without founder approval"},
+    "pause-manager": {"color": "B60205", "description": "While an open issue has this label, the manager does nothing"}
+  }
+}
