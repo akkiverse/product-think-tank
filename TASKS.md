@@ -6,7 +6,7 @@ Tick tasks as `- [x] … (YYYY-MM-DD, <PR link>)` and move them to **Done**.
 
 - [ ] Make the repo private: GitHub → Settings → General → Danger Zone → Change visibility → Private
       (or `gh repo edit akkiverse/product-think-tank --visibility private --accept-visibility-change-consequences`).
-- [ ] Review and merge the setup PR (`setup/think-tank`).
+- [ ] Review and merge the setup PR: https://github.com/akkiverse/product-think-tank/pull/1
 - [ ] Create the board: `python3 scripts/board_setup.py --dry-run`, then `python3 scripts/board_setup.py`.
 - [ ] Do the website-only board steps the script prints (views, "Item added → Inbox" workflow, turn off the
       "Done" workflows).
@@ -21,4 +21,4 @@ Tick tasks as `- [x] … (YYYY-MM-DD, <PR link>)` and move them to **Done**.
 
 ## Done
 
-- [x] Think tank setup: rules, employees, commands, board scripts, templates (2026-11-01, PR: setup/think-tank)
+- [x] Think tank setup: rules, employees, commands, board scripts, templates (2026-11-01, https://github.com/akkiverse/product-think-tank/pull/1)
