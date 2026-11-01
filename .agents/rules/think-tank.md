@@ -42,6 +42,9 @@ to live product. Abhishek (the founder) approves every build and every release. 
    else is working on the same thing, stop and ask him.
 8. **`/inspect` is read-only** on the product repo: no edits, commits or pushes there.
 9. Never touch cards in **Parked**.
+10. **Serverless multi-worker & live preview E2E verification before handing a PR to Abhishek:**
+    - Never store auth sessions only in an in-memory dict (`sessions = {}`); on Vercel serverless, concurrent requests hit different worker instances. Always use stateless HMAC-signed session tokens and/or persist sessions in the database, and test clearing in-memory state between requests in `pytest`.
+    - Before telling Abhishek a preview is ready, verify the full user journey (`login` -> protected GETs -> protected POST mutation) against the live Vercel Preview URL so he never hits a preventable runtime bug.
 
 ## How the board works
 
