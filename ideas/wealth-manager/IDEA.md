@@ -1,64 +1,63 @@
-# Idea: WealthManager
+# Idea: WealthManager (Private Family & Friends Wealth & News Intelligence Portal)
 
-- **Card:** https://github.com/akkiverse/product-think-tank/issues/2 · **Slug:** `wealth-manager` · **Date:** 2026-11-01 · **Author:** strategist
+- **Card:** https://github.com/akkiverse/product-think-tank/issues/2 · **Slug:** `wealth-manager` · **Date:** 2026-11-01 · **Author:** strategist (updated with Founder's private-portal requirements)
 
 ## In one sentence
-Indian retail investors overwhelmed by 1,500+ mutual funds, 5,000+ stocks, and noisy IPO hype get a calm, plain-English research and portfolio companion that explains mutual fund baskets, IPO fundamentals, and portfolio overlap without pushing high-commission trades.
+A private, invite-only wealth and intelligence portal for Abhishek, his family, and close friends that imports portfolios from Groww, Zerodha, and other Indian portals, refreshes live stock/MF prices, analyzes holdings + live business/employer news using Google Gemini or local Ollama, and gives the Admin full control to create users and block/unblock which news insights reach each person's dashboard.
 
 ## Customer
-- **Who:** Salaried Indian retail investors (ages 24–42) who already hold a discount brokerage account (Groww, Zerodha, Angel One, Upstox) and invest ₹5,000–₹50,000/month via SIPs and occasional stocks/IPOs, but do not have the time or training to read 300-page DRHP IPO filings or compare mutual fund rolling returns and portfolio overlap.
-- **How many:** India has 150M+ demat accounts (CDSL + NSDL) and 80M+ active mutual fund SIP accounts as of 2025–2026 ([SEBI](https://www.sebi.gov.in), [AMFI](https://www.amfiindia.com)). Even 0.01% of active DIY investors represents ~8,000–15,000 users.
-- **How they cope today:** They switch between Groww/Zerodha for execution, Value Research/Tickertape for screening, YouTube/Telegram "finfluencers" for IPO verdicts, and Excel spreadsheets to check if their mutual funds hold the same stocks.
+- **Who:** Strictly private — Abhishek (Admin), his family members, and close friends. **Not a commercial public SaaS.**
+- **How many:** ~5 to 25 trusted users (invite-only; **no public self-registration**).
+- **How they cope today:** Each family member or friend has investments scattered across Groww, Zerodha, or mutual funds, misses important economic/company news (including news about the company they work for), or gets confused by noisy market headlines without someone filtering and explaining what correction they actually need to make.
 
 ## Problem
-- **"I own 6 mutual funds, am I actually diversified?"** Most DIY investors buy "top-rated" funds that hold the exact same top-20 nifty stocks, paying multiple expense ratios for closet indexing.
-- **"Should I apply for this IPO or is it just hype?"** Mainboard and SME IPOs launch every week; reading a Red Herring Prospectus takes hours, while social media tips are biased or unverified.
-- **"Brokers make money when I trade, not when I sit tight."** Full-service brokerage apps nudge frequent buying/selling or push regular (commission-bearing) plans instead of unbiased portfolio hygiene.
-- **Cost of the pain:** 1%–2% annual drag from high-expense/overlapping funds, bad IPO allocations, and hours of weekend research anxiety.
+- **"My family and friends hold stocks and mutual funds on Groww/Zerodha, but don't know what corrections to make."** Over-concentration in one sector, overlapping mutual funds, or holding lagging assets goes unnoticed for months.
+- **"Important business, economic, or employer-company news gets missed — or noisy news causes panic."** If a user works at a specific company (or holds stocks in a sector hit by policy/economic shifts), they need analyzed, relevant alerts — while the Admin needs a way to **block/unblock** specific news items from reaching a family member's dashboard if it's unhelpful or alarming.
+- **"How do we pull Groww & Zerodha portfolios into one place and keep values live?"**
+  - **Zerodha** provides the Kite Connect API + Console CSV export.
+  - **Groww** does not provide a public retail API, but provides 1-click Holdings CSV/XLSX exports (and CAMS/CAS statements).
+  - By combining **1-click Groww/Zerodha Holdings Import + optional Zerodha Kite API token sync + automatic live NSE/BSE stock price & AMFI Mutual Fund NAV refresh**, every user gets live portfolio tracking without paying broker data fees.
 
 ## Why now
-1. **SEBI crackdown on unregistered finfluencers & unverified tips (2024–2026):** Investors are actively looking for transparent, data-backed, rule-based research tools rather than social-media stock tips.
-2. **Account Aggregator (AA) & CAS (Consolidated Account Statement) adoption:** Investors can export a single NSDL/CDSL/CAMS PDF statement of their holdings in 60 seconds, making broker-agnostic portfolio analysis possible without building a brokerage from scratch.
-3. **LLMs for financial filing summarization:** Summarizing a 400-page SEBI DRHP (IPO prospectus) into structured strengths, red flags, valuation multiples, and peer comparisons now costs pennies per filing.
+1. **Dual AI availability (Google Gemini API + Local Ollama):** We can run deep portfolio health diagnostics and news-to-user relevance matching using either **Google Gemini API** (cloud/Vercel) or **local Ollama** (`http://localhost:11434` on Abhishek's Mac) at zero cost.
+2. **Private family office portal in a box:** Modern FastAPI + executive fintech UI on Vercel lets a founder give family & friends a private-bank-grade dashboard with Admin oversight in days.
 
 ## Competitors and alternatives
-| Name | What they do | Price | Gap we fill |
+| Name | What they do | Price | Why they don't fit our private circle |
 |---|---|---|---|
-| **Groww / Upstox / Paytm Money** | Execution-first discount brokers with basic fund lists and 1-click UPI IPO bidding | ₹0–₹20/order | Great for buying, weak on deep portfolio overlap, unbiased IPO red-flag extraction, and cross-broker advice |
-| **Angel One (ARQ Prime)** | Full-service broker with rule-based stock scores and research | Brokerage + add-ons | Tied to an Angel One brokerage account; built to drive trading volume |
-| **INDmoney** | Net-worth tracker (Indian + US stocks, MFs) via Account Aggregator | Free + commission/premium tiers | Cluttered UI with heavy upselling of credit/insurance/loans |
-| **Tickertape / Value Research** | Stock & MF screeners and ratings | Free – ₹2,500/yr | Data-heavy tables for enthusiasts; doesn't turn a user's actual portfolio + upcoming IPOs into a plain-English action checklist |
-| **Do nothing / spreadsheet + YouTube** | Manual tracking in Google Sheets + finfluencer videos | Free | High effort, stale data, and unverified hype |
+| **Groww / Zerodha / Angel One** | Individual broker apps | Free / Brokerage | Siloed per broker; no Admin family oversight; no employer-company intelligence; no Admin news moderation |
+| **INDmoney / MProfit** | Public portfolio trackers | Free – ₹5,000/yr | Public commercial apps with ads/upsells; no Admin ability to create private accounts or filter/block news per family member |
+| **WhatsApp family group + Excel** | Manual sharing of news links and spreadsheets | Free | Unstructured, no live NAV/price refresh, no automated AI portfolio correction engine |
 
-## Money
-- **Important regulatory distinction:** Actually executing trades (brokerage) or giving personalized "buy/sell/hold" stock tips requires heavy **SEBI Stock Broker / Registered Investment Adviser (RIA) / Research Analyst (RA)** licenses and net-worth deposits. However, **software tools for educational screening, public-data IPO prospectus breakdowns, and mathematical mutual-fund overlap/cost calculators** can launch as a pure SaaS information tool (with clear SEBI disclaimers: educational/analytical tool, not personalized investment advice).
-- **Model:** Freemium SaaS subscription paid by the investor (no commissions, no ads, no data selling):
-  - **Free tier:** Live IPO Prospectus Explainer (plain-English summary of business, financials, promoter pledges, litigation red flags from official DRHP) + Curated MF Category Explorer (objective metrics: rolling returns, expense ratio, drawdown).
-  - **Pro tier (₹299/month or ₹1,999/year):** Unlimited CAMS/CAS Portfolio X-Ray (stock-level overlap across funds, expense-ratio leak calculator, asset-allocation drift alert) + Watchlist alerts.
+## Money (Private Utility — Not for Commercial Sale)
+- **Revenue model:** None needed (private internal tool for Abhishek, family, and friends).
+- **Running cost:** **$0/month** using Vercel (`akkiverse` team), free AMFI/Yahoo Finance public market feeds, live financial RSS feeds, local **Ollama** (free on Mac), and free-tier **Google Gemini API**.
 
 ## Risks (and cheapest test)
-| Risk | Type | How to test cheaply |
+| Risk | Type | How we solve it |
 |---|---|---|
-| **SEBI RIA/RA regulatory boundary:** Crossing from "analytical data tool" into unlicensed "personalized buy/sell advice" is illegal in India. | Legal / Regulatory | Keep v1 strictly to objective metrics (expense ratio, historical rolling return, % portfolio overlap, and cited DRHP prospectus extracts) with zero "Buy/Sell/Hold" verdicts unless partnered with a SEBI-registered RA/RIA. |
-| **Building a full brokerage is impossible for a 1-week MVP:** UPI IPO bidding and stock execution require exchange memberships. | Build / Scope | Don't build a brokerage; build the **decision companion** that links out to the user's existing broker (Groww/Zerodha/Angel One) once they decide. |
-| **Free data availability:** Real-time NSE/BSE tick data is expensive to license for redistribution. | Cost / Data | Use free end-of-day AMFI mutual fund NAV/scheme data (`api.mfapi.in` / AMFI text feed) and official public SEBI IPO filings. |
-| **Crowded space:** Every broker has a free mutual fund page. | Market / Distribution | Differentiate on **Portfolio X-Ray (overlap + fee leak)** and **1-page DRHP Red-Flag Extractor**, which brokers rarely highlight because they want users to buy more funds/IPOs. |
+| **Groww has no public retail OAuth API** | Technical | Support **Groww & Zerodha CSV/JSON 1-click upload + quick ticker entry**, and once tickers/MF codes are stored, automatically fetch **live stock prices & live AMFI NAVs** on login. Also include a **Zerodha Kite Connect API token** connector for direct Zerodha sync. |
+| **Local Ollama is not reachable from public Vercel cloud unless tunneled** | Architecture | Build a **Dual AI Router**: uses **Google Gemini API** (`GEMINI_API_KEY`) in the cloud or locally, switches to **Local Ollama** (`OLLAMA_BASE_URL`) when running locally or via tunnel, and includes a built-in deterministic analyzer fallback so it never errors out. |
+| **Unhelpful or panic-inducing news reaching a family member** | UX / Governance | **Admin News Gatekeeper:** Admin sees every news item matched to each user (portfolio match + employer match) and can toggle **Block / Unblock** per user in one click. |
+| **Unauthorized strangers trying to sign up** | Security | **Zero public registration.** Only Admin can create users, assign passwords, and activate/deactivate accounts. |
 
-## Smallest useful version
-A 1-week **FastAPI + Streamlit (or lightweight React) web app on Vercel** with three focused screens using free public Indian market data (no SEBI license or brokerage backend required):
-1. **MF Basket & Overlap Analyzer:** Pick 2–5 Indian mutual funds (via free AMFI data) or paste holdings to see: (a) stock/sector overlap, (b) fee drag (Regular vs Direct plan 10-year cost), and (c) objective category leaders ("Tax Savers / ELSS", "Low-Volatility Debt/Liquid", "Index Core") ranked purely by rolling return consistency and expense ratio.
-2. **IPO DRHP Plain-English Decoder:** Upload or select an upcoming Indian IPO prospectus summary to see a structured breakdown: business model in 3 bullets, revenue/profit trend, valuation vs listed peers, and a "Red Flags & Risks" checklist (litigation, debt repayment vs fresh issue).
-3. **SIP Goal & Step-Up Simulator:** Interactive calculator showing how a monthly SIP + annual step-up reaches a target corpus after inflation and LTCG tax.
-
-## Open questions for Abhishek (max 3)
-1. **Positioning:** Since becoming a SEBI-licensed broker (like Groww/Angel One) takes crores in capital and years of compliance, should we focus `WealthManager` v1 as an **unbiased Portfolio X-Ray & IPO Research Companion** that works alongside any broker the user already has?
-2. **Market:** Should v1 focus exclusively on **Indian markets** (NSE/BSE IPOs + AMFI Mutual Funds in ₹), or do you want a global/US market angle?
-3. **First feature to lead with:** Which hook do you like best for v1 — **(A) Mutual Fund Portfolio X-Ray + Curated Baskets**, **(B) AI IPO Prospectus Red-Flag Decoder**, or **(C) Both in one clean dashboard**?
-
-## Sources
-- [SEBI Master Circulars for Investment Advisers & Research Analysts](https://www.sebi.gov.in)
-- [AMFI India Mutual Fund & SIP Data](https://www.amfiindia.com)
-- [MFAPI.in — Open Indian Mutual Fund NAV API](https://www.mfapi.in)
+## Smallest useful version (v1 Complete Feature Set)
+A sleek, professional **Executive Dark/Light Fintech Web App** (Python FastAPI backend + rich interactive dashboard UI) with:
+1. **Invite-Only Auth & Admin User Management:** Login screen (no sign-up button). Admin can create/edit family & friend accounts, set their **Employer Company & Industry/Sector**, and manage credentials.
+2. **Groww & Zerodha Portfolio Sync + Live Price/NAV Engine:** Import holdings from **Groww CSV**, **Zerodha Console CSV**, **Zerodha Kite API token**, or quick-add stocks/mutual funds/IPO bids, with live price & AMFI NAV refresh.
+3. **AI Portfolio Correction & Rebalancing Engine (Gemini + Ollama):** Analyzes each user's holdings and generates actionable correction cards (sector over-concentration, Direct-vs-Regular MF fee drag, underperforming holdings, overlapping funds, risk balance, and curated MF/IPO opportunities).
+4. **Live Business/Economic News + Employer Company Intelligence:** Pulls live Indian business/economic news feeds, runs AI impact analysis against both the user's **investments** and their **employer company/industry**, and creates personalized notification alerts.
+5. **Admin Intelligence & News Moderation Center:** Shows Admin all users, which news/suggestion is matched to which user and why, with 1-click **Block / Unblock** controls to control what appears on each user's dashboard.
 
 ## Founder's words
-> An app that helps you make investment decisions and gives suggestions is typically known as a Wealth Management or Full-Service Brokerage App. Unlike basic budget trackers, these act like a digital stockbroker and financial advisor rolled into one. Here is exactly how they help you navigate stocks, mutual funds, and IPOs: Stock Market Suggestions: Instead of just giving you a search bar to buy and sell, many of these apps feature AI-powered advisory engines or in-house research teams. They provide "buy, sell, or hold" recommendations, stock screeners to help you find undervalued companies, and daily market insights so you do not have to do all the heavy technical analysis yourself. Curated Mutual Funds: Trying to pick from thousands of mutual funds can be overwhelming. These apps analyze past performance, expense ratios, and risks, then categorize them into easy, pre-made baskets—like "Top Tax Savers," "High Growth for Long Term," or "Better than Fixed Deposits." They also allow you to automate your investments through a monthly SIP (Systematic Investment Plan). IPO Intelligence: When a new company goes public (IPO), these apps provide simplified expert reviews. They break down the company's financial health, explain the pros and cons of the business, and highlight expected listing gains. Applying is generally as simple as entering your UPI ID and approving a payment mandate on your phone. Popular Apps That Fit This Description: Angel One: This is a strong choice if you want active guidance. It features an AI-driven engine called ARQ Prime that provides rule-based stock recommendations, alongside detailed research reports and advisory services.    Rupeezy Groww: Highly rated for beginners. While it is more hands-off with direct stock tips, it excels at helping you discover top-performing mutual funds through easy-to-read charts and offers a frictionless, one-click process for IPO applications.    Decentro INDmoney: Excellent if you want an AI-driven overview of your entire financial life. It tracks your existing investments, suggests ways to diversify your portfolio, and lets you invest seamlessly in Indian stocks, mutual funds, and even US stocks.    BlinkMoney Upstox & Paytm Money: Both offer fast, uncluttered platforms with smart watchlists, curated mutual fund ideas, and deep company analytics to help you make informed decisions before you bid on an IPO. These platforms are heavily regulated (by SEBI) and link securely to your bank, making it safe and easy to build a diversified portfolio directly from your smartphone.
+> An app that helps you make investment decisions and gives suggestions is typically known as a Wealth Management or Full-Service Brokerage App...
+>
+> basically it is not for business it would be just for me, my family and friends.
+> I have ollama running locally and even Google ’s API.
+> what I want is we can fetch our investment report from Groww, Zerodha or some other portals and this app should analyse and suggest what correction we can do.
+> I want separate user have their own login, with a admin who can create the user and maintain the required dash board and app. No one can register of their own.
+> I am not sure but looking for API or some way to fetch live details from Groww or Zerodha of the portfolio.
+> Not only that, the app can fetch latest news related to business and economics from news sources (Required analysis) and based on that provide suggestions on Dashboard.
+> Basically, what I want is when I login to app I can see the report, and notifications if some news is helpful for me. It should be properly analysed. For example I am working in a certain company so if something I can get from there all those information should be provided.
+> Admin will get information for all users like which news is helpful to which user. he will have access to block or unblock passing that info to that person’s dashboard.
+> Also, do work on UI it should look attractive and professional
