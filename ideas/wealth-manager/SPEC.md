@@ -32,24 +32,34 @@ As a logged-in user, I want notifications and deep analysis when latest business
 
 ### US-5: Attractive, Professional Executive Wealth UI
 As Abhishek and his family/friends, we want a modern, polished, attractive UI that feels like a private wealth management suite on desktop and mobile.
-- **AC-5.1** Given the web interface, when rendered, then it provides a cohesive executive theme (deep navy/emerald/gold glassmorphism aesthetic, interactive allocation & sector visual charts, broker badges for Groww/Zerodha, AI correction cards, an Employer & Market Intelligence notification feed, Curated MF/IPO Explorer, and a dedicated Admin Control Center for user & news moderation) with zero personal contact data hardcoded on public pages.
+- **AC-5.1** Given the web interface, when rendered, then it provides a cohesive executive theme (deep navy/emerald/gold glassmorphism aesthetic, interactive allocation & sector visual charts, broker badges for Groww/Zerodha, AI correction cards, an Employer & Market Intelligence notification feed, Curated MF/IPO Explorer, and a dedicated Admin Control Center for user & news moderation) with zero personal contact data and **zero pre-filled credentials or quick-login bypass buttons** on the login page.
+
+### US-6: Normalized Relational Database (`users`, `user_employers`, `broker_accounts`, `portfolio_holdings`, `news_articles`, `user_news_insights`) & Daily News Dates
+As Abhishek, I want a clean, normalized relational database where `users` stores only core identity and maps via `user_id` to separate `user_employers` (multiple companies/ESOPs) and `broker_accounts` (multiple Zerodha/Groww/family accounts per user), and where every news article displays its exact publication date (`published_at` / `published_date`).
+- **AC-6.1** Given the database layer (`PostgreSQL` via `DATABASE_URL` or local `SQLite`), when initialized, then it creates the 7 normalized tables defined in [DATABASE_SCHEMA.md](DATABASE_SCHEMA.md) (`users`, `user_employers`, `broker_accounts`, `portfolio_holdings`, `news_articles`, `user_news_insights`, `system_settings`) with `user_id` foreign-key relationships.
+- **AC-6.2** Given a logged-in user, when they add or manage multiple broker accounts (e.g., `"My Zerodha"`, `"Mom's Zerodha"`, `"My Groww"`) and multiple employer profiles, then holdings and Zerodha API tokens are stored against the specific `broker_account_id` and `user_id`, not inside the `users` table.
+- **AC-6.3** Given any news item in the user feed or Admin Moderation Matrix, when returned by the API and rendered in the UI, then it includes `published_at` and formatted `published_date` (`YYYY-MM-DD`) sorted newest-first.
+- **AC-6.4** Given the public login page (`GET /`), when rendered, then the username and password inputs have no pre-filled `value` attributes and no quick-login credential buttons are present.
 
 ## Screens
 | Screen | Who | Purpose | Stories |
 |---|---|---|---|
-| **1. Private Invite-Only Login** | All | Sleek sign-in screen (no registration form) with quick-demo switcher when in local preview mode. | US-1, US-5 |
-| **2. My Wealth Report & Corrections Dashboard** | Member & Admin | Net worth KPI cards, Broker split (Groww vs Zerodha), Asset & Sector allocation charts, Holdings table with live P&L, and **AI Portfolio Correction & Rebalancing Cards**. | US-2, US-3, US-5 |
-| **3. Personalized News & Employer Intelligence Feed** | Member & Admin | Notification bell + dedicated intelligence cards showing analyzed business/economic news matched to the user's **Employer Company** (`employer_company`) and **Portfolio Holdings**, with AI action notes. | US-3, US-4, US-5 |
-| **4. Portfolio Import & Live Sync Studio** | Member & Admin | One-click **Groww CSV / Zerodha CSV Upload**, manual holding editor, **Zerodha Kite API Connector**, and **Curated MF Baskets & IPO Radar**. | US-2, US-3 |
-| **5. Admin Control Center (Users + News Gatekeeper + AI Settings)** | Admin only | (a) Create/Edit Family & Friend users + set their Employer Company & Sector, (b) **User-News Relevance Matrix** with 1-click **Block / Unblock** toggle per user, and (c) **AI Engine Switcher** (Google Gemini API vs Local Ollama URL/Model). | US-1, US-3, US-4, US-5 |
+| **1. Private Invite-Only Login** | All | Clean sign-in screen with empty Username & Password fields (no registration form, no pre-filled credentials). | US-1, US-5, US-6 |
+| **2. My Wealth Report & Corrections Dashboard** | Member & Admin | Net worth KPI cards, filter by Broker Account (e.g., *All Accounts*, *My Zerodha*, *Mom's Zerodha*, *Groww*), Asset & Sector allocation charts, Holdings table with live P&L, and **AI Portfolio Correction & Rebalancing Cards**. | US-2, US-3, US-5, US-6 |
+| **3. Personalized News & Employer Intelligence Feed** | Member & Admin | Notification bell + dedicated intelligence cards showing **publication date (`published_date`)**, analyzed business/economic news matched to the user's **Employer Companies** (`user_employers`) and **Portfolio Holdings**, with AI action notes. | US-3, US-4, US-5, US-6 |
+| **4. Broker Accounts & Portfolio Sync Studio** | Member & Admin | Manage multiple **Broker Accounts** per user (add *My Zerodha*, *Spouse/Parent Zerodha*, *Groww*), one-click **Groww/Zerodha CSV Upload** per account, **Zerodha Kite API Connector** per account, and **Curated MF Baskets & IPO Radar**. | US-2, US-3, US-6 |
+| **5. Admin Control Center (Users + Employers + News Gatekeeper + AI Settings)** | Admin only | (a) Create/Edit Family & Friend users + map their **Employer Profiles (`user_employers`)**, (b) **User-News Relevance Matrix** (with publication date) and 1-click **Block / Unblock** toggle per user, and (c) **AI Engine & DB Status** (Google Gemini API vs Local Ollama + live Database status badge). | US-1, US-3, US-4, US-5, US-6 |
 
-## Data
-| Entity | Fields | Stored where |
+## Data (Normalized Relational Schema — Full DDL in [DATABASE_SCHEMA.md](DATABASE_SCHEMA.md))
+| Table | Primary Key / Foreign Keys | Key Columns |
 |---|---|---|
-| `User` | `id`, `username`, `display_name`, `password_hash`, `role` (`admin`\|`member`), `employer_company`, `employer_sector`, `risk_profile`, `active` | JSON/SQLite state store (with Admin JSON export/import backup) |
-| `Holding` | `id`, `user_id`, `broker` (`Groww`\|`Zerodha`\|`Other`), `asset_type` (`STOCK`\|`MUTUAL_FUND`\|`GOLD`\|`FD`), `symbol`, `name`, `sector`, `quantity`, `avg_price`, `live_price`, `last_synced` | State store + live price refresh |
-| `NewsItem` | `id`, `title`, `source`, `url`, `published_at`, `summary`, `tags`, `companies`, `sectors` | Fetched from live Business/Economic RSS feeds + curated fallback |
-| `UserNewsInsight` | `id`, `news_id`, `user_id`, `match_type` (`EMPLOYER`\|`PORTFOLIO`\|`MACRO`), `matched_on`, `sentiment`, `ai_analysis`, `suggested_action`, `blocked_by_admin`, `read` | State store |
+| `users` | `id` (PK) | `username` (UNIQUE), `display_name`, `password_hash`, `role` (`admin`\|`member`), `risk_profile`, `is_active`, `created_at` |
+| `user_employers` | `id` (PK), `user_id` (FK → `users.id`) | `company_name`, `stock_symbol`, `sector`, `relationship_type` (`PRIMARY_EMPLOYER`\|`PREVIOUS_ESOP`\|`FAMILY_EMPLOYER`), `holds_esop`, `is_primary` |
+| `broker_accounts` | `id` (PK), `user_id` (FK → `users.id`) | `broker_name` (`Zerodha`\|`Groww`\|`Other`), `account_label`, `account_holder_name`, `client_id`, `sync_mode`, `api_key`, `access_token`, `last_synced_at` |
+| `portfolio_holdings` | `id` (PK), `user_id` (FK → `users.id`), `broker_account_id` (FK → `broker_accounts.id`) | `asset_type`, `symbol`, `name`, `sector`, `quantity`, `avg_price`, `live_price`, `plan_type`, `expense_ratio_regular`, `expense_ratio_direct`, `price_updated_at` |
+| `news_articles` | `id` (PK) | `title`, `source`, `url`, `published_at` (TIMESTAMPTZ), `published_date` (DATE), `summary`, `companies_json`, `sectors_json`, `sentiment` |
+| `user_news_insights` | `id` (PK), `news_id` (FK → `news_articles.id`), `user_id` (FK → `users.id`) | `match_type`, `matched_on`, `ai_analysis`, `suggested_action`, `blocked_by_admin`, `moderated_by`, `moderated_at`, `is_read` |
+| `system_settings` | `setting_key` (PK) | `setting_value_json`, `updated_at` |
 
 ## Integrations
 1. **Google Gemini API (`https://generativelanguage.googleapis.com`):** Used for deep portfolio correction advice and news-to-user/employer analysis when `GEMINI_API_KEY` is configured.
