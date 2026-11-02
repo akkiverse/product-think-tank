@@ -1,9 +1,9 @@
 {
   "name": "shikshanama",
   "title": "Shikshanama (शिक्षाNama)",
-  "tagline": "Modern coaching institute website and admin CMS with 1:1, 4:5, and 16:9 WebP cropper and DPDP-compliant WhatsApp parent consent.",
+  "tagline": "Modern coaching institute website and admin CMS in Navy & Muted Gold with universal 25 MB image cropper, live photo verification previews, and DPDP-compliant WhatsApp parent consent.",
   "status": "live",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "url": "https://shikshanama.vercel.app",
   "repo": "https://github.com/akkiverse/shikshanama",
   "board_card": 7,
