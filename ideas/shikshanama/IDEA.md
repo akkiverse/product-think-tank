@@ -59,6 +59,7 @@ can see real results and book a free demo in under a minute, and staff can keep 
 | Scope is large (public site + 8 admin managers + cropper) | Build | Build in one PR but ordered: public read pages → lead form → admin; cut nice-to-haves first |
 
 ## Smallest useful version
+*(Updated in SPEC v2: React + Vite front end with motion, FastAPI JSON API, consent flow, sample demo content.)*
 A FastAPI app with server-rendered, mobile-first pages (Tailwind-style CSS, a little vanilla JS) on Vercel, Neon Postgres for
 content and leads, Vercel Blob for images. Public: ticker, hero with counters and CTAs, filterable Hall of Fame, courses with
 upcoming batches, founders, branch locator, testimonials/gallery/Instagram callout, floating WhatsApp/Call, demo form. Admin at
@@ -67,10 +68,13 @@ leads inbox with status, CSV export and WhatsApp button. Every image upload goes
 that saves WebP. Pre-filled with Shikshanama's brand, Instagram handle and flagship address. Realistically 7–10 working days,
 not one week.
 
-## Open questions for Abhishek (max 3)
-1. Is this a paid client job (what fee?) or a favour/portfolio build? It changes the scoring and the Vercel plan question.
-2. Will the live site use a custom domain (e.g. shikshanama.in) owned by the institute, and which Vercel plan will host it?
-3. Should the site be English with the Devanagari brand only (recommended for v1), or fully bilingual Hindi/English?
+## Open questions for Abhishek (answered 2026-11-02)
+1. ~~Paid job or favour?~~ **Free demo** to show Shikshanama what AkkiVerse can do; paid launch only if they like it.
+2. ~~Domain and Vercel plan?~~ **Non-commercial demo on the current Vercel (Hobby) plan**; domain and paid plan come with a paid launch.
+3. ~~English only or bilingual?~~ **A mix of English and Hindi that looks good** (Hinglish headings, Hindi accent lines, matched fonts).
+
+Also from Abhishek: use **React + Vite** for a more attractive, dynamic UI with hover effects; for consent, offer a
+**downloadable consent form** and/or a **WhatsApp message to the parent from Shikshanama's number**. See SPEC v2.
 
 ## Sources
 - India coaching market and student share: IMARC Group coaching market report; vacademy.io summary of NSS data (27% of students take coaching).
