@@ -1,0 +1,27 @@
+{
+  "name": "shikshanama",
+  "title": "Shikshanama (शिक्षाNama)",
+  "tagline": "Modern coaching institute website and admin CMS with 1:1, 4:5, and 16:9 WebP cropper and DPDP-compliant WhatsApp parent consent.",
+  "status": "live",
+  "version": "0.1.0",
+  "url": "https://shikshanama.vercel.app",
+  "repo": "https://github.com/akkiverse/shikshanama",
+  "board_card": 7,
+  "stack": {
+    "frontend": "React 18 + Vite (TypeScript)",
+    "backend": "Python 3.13 / FastAPI",
+    "database": "Neon Postgres / SQLite",
+    "storage": "Vercel Blob / Database-backed WebP",
+    "hosting": "Vercel Serverless (team akkiverse)"
+  },
+  "modules": [
+    "Hall of Fame results showcase with multi-factor filtering",
+    "Courses and live upcoming batch scheduling",
+    "Founders leadership desk",
+    "Multi-branch locator with West Patel Nagar flagship center",
+    "Client-side 1:1, 4:5, 16:9 WebP image cropper",
+    "DPDP Act 2023 compliant WhatsApp parent consent link and bilingual PDF generator",
+    "Book a Free Demo lead capture with +91 phone validation and honeypot",
+    "Admin CMS with inline edit, reorder, and CSV export"
+  ]
+}
